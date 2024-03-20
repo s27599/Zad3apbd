@@ -1,13 +1,13 @@
-﻿namespace Zad3;
+﻿namespace Zad3.Models.@base;
 
 public abstract class Container
 {
-    protected double Loaded { get; set; }
-    protected double Height { get; }
-    protected double OwnWeight{ get; }
-    protected double Depth{ get; }
-    protected String SerialNumber{ get; set; }
-    protected double MaxLoad{ get; }
+    public double Loaded { get; protected set; }
+    public double Height { get; }
+    public double OwnWeight{ get; }
+    public double Depth{ get; }
+    public String SerialNumber{ get; protected set; }
+    public double MaxLoad{ get; }
 
     protected Container( double height, double ownWeight, double depth, double maxLoad)
     {

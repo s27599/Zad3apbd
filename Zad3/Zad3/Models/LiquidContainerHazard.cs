@@ -1,6 +1,4 @@
-﻿using Zad3.Models;
-
-namespace Zad3;
+﻿namespace Zad3.Models;
 
 public class LiquidContainerHazard : LiquidConainter, IHazardNotifier
 {

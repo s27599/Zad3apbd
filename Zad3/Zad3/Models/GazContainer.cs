@@ -1,4 +1,6 @@
-﻿namespace Zad3.Models;
+﻿using Zad3.Models.@base;
+
+namespace Zad3.Models;
 
 public class GazContainer : Container, IHazardNotifier
 {

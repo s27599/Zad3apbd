@@ -2,43 +2,43 @@
 
 public abstract class Container
 {
-    protected int Load { get; set; }
-    protected int Height { get; }
-    protected int OwnWeight{ get; }
-    protected int Depth{ get; }
+    protected double Loaded { get; set; }
+    protected double Height { get; }
+    protected double OwnWeight{ get; }
+    protected double Depth{ get; }
     protected String SerialNumber{ get; set; }
-    protected int MaxLoad{ get; }
+    protected double MaxLoad{ get; }
 
-    protected Container(int load, int height, int ownWeight, int depth, int maxLoad)
+    protected Container( double height, double ownWeight, double depth, double maxLoad)
     {
-        this.Load = load;
+        this.Loaded = 0;
         this.Height = height;
         this.OwnWeight = ownWeight;
         this.Depth = depth;
         this.MaxLoad = maxLoad;
     }
 
-    protected void Unload(int weight)
+    public void Unload(double weight)
     {
-        if (this.Load >= weight)
+        if (this.Loaded >= weight)
         {
-            Load = Load - weight;
+            Loaded = Loaded - weight;
         }
         else
         {
-            Console.Out.WriteLine("W kontenerze nie ma tyle ładunku");
+            Console.Out.WriteLine("Container don't have that much Load");
         }
     }
 
-    protected void load(int weight)
+    public void Load(double weight)
     {
-        if (Load + weight <= MaxLoad)
+        if (Loaded + weight <= MaxLoad)
         {
-            Load += weight;
+            Loaded += weight;
         }
         else
         {
-            throw new OverfillException("Przeładowanie");
+            throw new OverfillException("OVERLOAD");
         }
     }
 }

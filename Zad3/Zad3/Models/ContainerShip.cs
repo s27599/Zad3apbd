@@ -33,13 +33,22 @@ public class ContainerShip
 
     public void Load(List<Container> containersToLoad)
     {
+        double sumMas = 0;
+        
         // policzyć łączną masę i porównywać z max masą łączną
         foreach (Container con in containersToLoad)
         {
-
+            sumMas += (con.OwnWeight + con.Loaded);
         }
-        
-        
+        if (containers.Count+containersToLoad.Count < maxContainers)
+        {
+            if (maxContainerMass > sumMas + _ContainerMass)
+            {
+                foreach (Container con in containersToLoad) containers.Add(con);
+
+                _ContainerMass = sumMas + _ContainerMass;
+            }
+        }
         
     }
     

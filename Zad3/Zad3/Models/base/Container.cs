@@ -9,6 +9,7 @@ public abstract class Container
     public String SerialNumber{ get; protected set; }
     public double MaxLoad{ get; }
     public String type { get; protected set; }
+    public bool OnShip { get;  set; }
 
     protected Container( double height, double ownWeight, double depth, double maxLoad)
     {
@@ -17,6 +18,7 @@ public abstract class Container
         this.OwnWeight = ownWeight;
         this.Depth = depth;
         this.MaxLoad = maxLoad;
+        Console.Out.WriteLine("Container Created");
     }
 
     public void Unload(double weight)
@@ -24,6 +26,7 @@ public abstract class Container
         if (this.Loaded >= weight)
         {
             Loaded = Loaded - weight;
+            Console.Out.WriteLine("Container unloaded");
         }
         else
         {
@@ -36,6 +39,7 @@ public abstract class Container
         if (Loaded + weight <= MaxLoad)
         {
             Loaded += weight;
+            Console.Out.WriteLine("Container loaded");
         }
         else
         {

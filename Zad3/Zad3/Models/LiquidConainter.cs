@@ -23,6 +23,7 @@ public class LiquidConainter : Container, IHazardNotifier
         if (Loaded + weight <= MaxLoad*0.9)
         {
             Loaded += weight;
+            Console.Out.WriteLine("Container Loaded");
         }
         else
         {

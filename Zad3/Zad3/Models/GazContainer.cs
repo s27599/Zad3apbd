@@ -25,6 +25,7 @@ public class GazContainer : Container, IHazardNotifier
         {
             Loaded = Loaded - weight;
             pressure -= weight / 100;
+            Console.Out.WriteLine("Container Unloaded");
         }
         else
         {
@@ -38,6 +39,7 @@ public class GazContainer : Container, IHazardNotifier
         {
             Loaded += weight;
             pressure += weight/100;
+            Console.Out.WriteLine("Container Loaded");
         }
         else
         {

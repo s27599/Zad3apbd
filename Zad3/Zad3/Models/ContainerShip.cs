@@ -21,6 +21,7 @@ public class ContainerShip
         this.maxSpeed = maxSpeed;
         this.maxContainers = maxContainers;
         this.maxContainerMass = maxContainerMass;
+        Console.Out.WriteLine("Ship Created");
     }
 
     public void Load(Container container)
@@ -36,8 +37,18 @@ public class ContainerShip
                 if (maxContainerMass > (container.OwnWeight + container.Loaded) + _ContainerMass)
                 {
                     containers.Add(container);
+                    container.OnShip = true;
                     _ContainerMass = (container.OwnWeight + container.Loaded) + _ContainerMass;
+                    Console.Out.WriteLine("Container Loaded");
                 }
+                else
+                {
+                    Console.Out.WriteLine("This container is to heavy");
+                }
+            }
+            else
+            {
+                Console.Out.WriteLine("This ship has to many containers loaded");
             }
         }
     }
@@ -60,8 +71,12 @@ public class ContainerShip
             {
                 if (maxContainerMass > sumMas + _ContainerMass)
                 {
-                    foreach (Container con in containersToLoad) containers.Add(con);
-
+                    foreach (Container con in containersToLoad)
+                    {
+                        containers.Add(con);
+                        con.OnShip = true;
+                        Console.Out.WriteLine("Container Loaded");
+                    }
                     _ContainerMass = sumMas + _ContainerMass;
                 }
             }
@@ -75,6 +90,8 @@ public class ContainerShip
         {
             containers.Remove(container);
             _ContainerMass -= (container.OwnWeight + container.Loaded);
+            container.OnShip = false;
+            Console.Out.WriteLine("Container Unloaded");
         }
     }
 
@@ -94,10 +111,11 @@ public class ContainerShip
         {
             unload(container1);
             Load(container2);
+            Console.Out.WriteLine("Containers Changed");
         }
     }
 
-
+    
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();

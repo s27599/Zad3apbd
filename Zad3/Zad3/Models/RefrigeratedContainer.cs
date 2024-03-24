@@ -42,6 +42,7 @@ public class RefrigeratedContainer : Container
                 Loaded += weight;
                 Products = category;
                 _temp = ((int)Products) / 100;
+                Console.Out.WriteLine("Container Loaded");
             }
             else
             {

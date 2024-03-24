@@ -36,159 +36,277 @@ List<Container> containers = new List<Container>();
 string? input;
 
 
-
-
 do
 {
-    Console.Out.WriteLine("Options: \n" +
+    
+    Console.Out.WriteLine("\nOptions: \n" +
                           "q - quit \n" +
                           "1 - Create ContainerShip\n" +
                           "2 - Create Container\n" +
                           "3 - Load Container to ship\n" +
                           "4 - Load to the container\n" +
                           "5 - Unload from container\n" +
-                          "6 - Unload container\n" +
+                          "6 - Unload container from ship\n" +
                           "7 - change temperature\n" +
                           "8 - container info\n" +
                           "9 - Ship info");
     input = Console.ReadLine();
-    switch (input)
+    try
     {
-        case "1":
+        switch (input)
         {
-            Console.Out.WriteLine("enter Max Speed");
-            int maxSpeed = Convert.ToInt32(Console.ReadLine());
-            Console.Out.WriteLine("enter Max Containers count");
-            int maxContainers = Convert.ToInt32(Console.ReadLine());
-            Console.Out.WriteLine("enter Load in tones");
-            double maxLoad = Convert.ToDouble(Console.ReadLine());
-            if (maxSpeed > 0 && maxContainers > 0 && maxLoad > 0)
-            {
-                containerShips.Add(new ContainerShip(maxSpeed, maxContainers, maxLoad));
-            }
-            else
-            {
-                Console.Out.WriteLine("Values must be biger than 0");
-            }
-        }
-            break;
-        case "2":
-        {
-            Console.Out.WriteLine("Select type of the container: \n" +
-                                  "1 - Gaz\n" +
-                                  "2 - Liquid\n" +
-                                  "3 - Liquid Hazard\n" +
-                                  "4 - Refrigerated");
 
-            int type = Convert.ToInt32(Console.ReadLine());
-            if (type <= 4 && type >= 1)
+            case "1":
             {
-                Console.Out.WriteLine("Enter height: ");
-                double height = Convert.ToDouble(Console.ReadLine());
-                Console.Out.WriteLine("Enter ownWeight: ");
-                double ownWeight = Convert.ToDouble(Console.ReadLine());
-                Console.Out.WriteLine("Enter depth: ");
-                double depth = Convert.ToDouble(Console.ReadLine());
-                Console.Out.WriteLine("Enter maxLoad: ");
+                Console.Out.WriteLine("enter Max Speed");
+                int maxSpeed = Convert.ToInt32(Console.ReadLine());
+                Console.Out.WriteLine("enter Max Containers count");
+                int maxContainers = Convert.ToInt32(Console.ReadLine());
+                Console.Out.WriteLine("enter Load in tones");
                 double maxLoad = Convert.ToDouble(Console.ReadLine());
-                if (height <= 0 && ownWeight <= 0 && depth <= 0 && maxLoad <= 0)
+                if (maxSpeed > 0 && maxContainers > 0 && maxLoad > 0)
                 {
-                    Console.Out.WriteLine("Values must be bigger than 0");
+                    containerShips.Add(new ContainerShip(maxSpeed, maxContainers, maxLoad));
                 }
                 else
                 {
-                    switch (type)
+                    Console.Out.WriteLine("Values must be biger than 0");
+                }
+            }
+                break;
+            case "2":
+            {
+                Console.Out.WriteLine("Select type of the container: \n" +
+                                      "1 - Gaz\n" +
+                                      "2 - Liquid\n" +
+                                      "3 - Liquid Hazard\n" +
+                                      "4 - Refrigerated");
+
+                int type = Convert.ToInt32(Console.ReadLine());
+                if (type <= 4 && type >= 1)
+                {
+                    Console.Out.WriteLine("Enter height: ");
+                    double height = Convert.ToDouble(Console.ReadLine());
+                    Console.Out.WriteLine("Enter ownWeight: ");
+                    double ownWeight = Convert.ToDouble(Console.ReadLine());
+                    Console.Out.WriteLine("Enter depth: ");
+                    double depth = Convert.ToDouble(Console.ReadLine());
+                    Console.Out.WriteLine("Enter maxLoad: ");
+                    double maxLoad = Convert.ToDouble(Console.ReadLine());
+                    if (height <= 0 && ownWeight <= 0 && depth <= 0 && maxLoad <= 0)
                     {
-                        case 1:
-                            containers.Add(new GazContainer(height, ownWeight, depth, maxLoad));
-                            break;
-                        case 2:
-                            containers.Add(new LiquidConainter(height, ownWeight, depth, maxLoad));
-                            break;
-                        case 3:
-                            containers.Add(new LiquidContainerHazard(height, ownWeight, depth, maxLoad));
-                            break;
-                        case 4:
-                            containers.Add(new RefrigeratedContainer(height, ownWeight, depth, maxLoad));
-                            break;
+                        Console.Out.WriteLine("Values must be bigger than 0");
+                    }
+                    else
+                    {
+                        switch (type)
+                        {
+                            case 1:
+                                containers.Add(new GazContainer(height, ownWeight, depth, maxLoad));
+                                break;
+                            case 2:
+                                containers.Add(new LiquidConainter(height, ownWeight, depth, maxLoad));
+                                break;
+                            case 3:
+                                containers.Add(new LiquidContainerHazard(height, ownWeight, depth, maxLoad));
+                                break;
+                            case 4:
+                                containers.Add(new RefrigeratedContainer(height, ownWeight, depth, maxLoad));
+                                break;
+                        }
+                    }
+
+                }
+            }
+                break;
+            case "3":
+            {
+                for (int i = 0; i < containers.Count; i++)
+                {
+                    if (containers[i].OnShip == false)
+                        Console.Out.WriteLine(i + " - " + containers[i]);
+                }
+
+                Console.Out.WriteLine("Select container");
+                int selection = Convert.ToInt32(Console.ReadLine());
+
+                for (int i = 0; i < containerShips.Count; i++)
+                {
+                    Console.Out.WriteLine(i + " - " + containerShips[i]);
+                }
+
+                Console.Out.WriteLine("Select Ship");
+                int shipSelection = Convert.ToInt32(Console.ReadLine());
+
+
+                if (selection >= 0 && selection < containers.Count)
+                {
+                    if (shipSelection >= 0 && shipSelection < containerShips.Count)
+                    {
+                        containerShips[shipSelection].Load(containers[selection]);
                     }
                 }
 
             }
-        }
-            break;
-        case "3":
-        {
-            for (int i = 0; i < containers.Count; i++)
+                break;
+            case "4":
             {
-                Console.Out.WriteLine(i + " - " + containers[i]);
-            }
-
-            Console.Out.WriteLine("Select container");
-            int selection = Convert.ToInt32(Console.ReadLine());
-            
-             for (int i = 0; i < containerShips.Count; i++)
-            {
-                Console.Out.WriteLine(i + " - " + containerShips[i]);
-            }
-
-            Console.Out.WriteLine("Select Ship");
-            int shipSelection = Convert.ToInt32(Console.ReadLine());
-            
-            
-            if (selection > 0 && selection <= containers.Count)
-            {
-                if (shipSelection > 0 && shipSelection <= containerShips.Count)
+                for (int i = 0; i < containers.Count; i++)
                 {
-                    containerShips[shipSelection].Load(containers[selection]);
+                    Console.Out.WriteLine(i + " - " + containers[i]);
                 }
-            }
 
-        }
-            break;
-        case "4":
-        {
-            for (int i = 0; i < containers.Count; i++)
-            {
-                Console.Out.WriteLine(i + " - " + containers[i]);
-            }
+                Console.Out.WriteLine("Select container");
+                int selection = Convert.ToInt32(Console.ReadLine());
 
-            Console.Out.WriteLine("Select container");
-            int selection = Convert.ToInt32(Console.ReadLine());
-            
-            if (selection >= 0 && selection <= containers.Count)
-            {
-                if (containers[selection].type != "RefrigeratedContainer")
+                if (selection >= 0 && selection <= containers.Count)
                 {
-                    
-                    Console.Out.WriteLine("Enter weight of the load");
-                    double weight = Convert.ToDouble(Console.ReadLine());
-                    containers[selection].Load(weight);
-                }
-                else
-                {
-                    Console.Out.WriteLine("Enter weight of the load");
-                    double weight = Convert.ToDouble(Console.ReadLine());
-                    int tmp = 0;
-                    String[] enums = Enum.GetNames(typeof(Products));
-
-                    foreach (String pro in enums)
+                    if (containers[selection].type != "RefrigeratedContainer")
                     {
-                        Console.Out.WriteLine(tmp+ " " + pro);
-                        tmp++;
+
+                        Console.Out.WriteLine("Enter weight of the load");
+                        double weight = Convert.ToDouble(Console.ReadLine());
+                        try
+                        {
+                            containers[selection].Load(weight);
+                        }
+                        catch (OverfillException e)
+                        {
+                            Console.Out.WriteLine("OVERLOAD");
+                        }
                     }
-                    Console.Out.WriteLine("Select Type of the product");
-                    int type = Convert.ToInt32(Console.ReadLine());
-                    
-                    RefrigeratedContainer refrigeratedContainer = (RefrigeratedContainer)containers[selection];
-                    refrigeratedContainer.Load(weight,(Products)Enum.Parse(typeof(Products),enums[type]));
+                    else
+                    {
+                        Console.Out.WriteLine("Enter weight of the load");
+                        double weight = Convert.ToDouble(Console.ReadLine());
+                        int tmp = 0;
+                        String[] enums = Enum.GetNames(typeof(Products));
+
+                        foreach (String pro in enums)
+                        {
+                            Console.Out.WriteLine(tmp + " " + pro);
+                            tmp++;
+                        }
+                        Console.Out.WriteLine("Select Type of the product");
+                        int type = Convert.ToInt32(Console.ReadLine());
+
+                        RefrigeratedContainer refrigeratedContainer = (RefrigeratedContainer)containers[selection];
+                        try
+                        {
+                            refrigeratedContainer.Load(weight, (Products)Enum.Parse(typeof(Products), enums[type]));
+                        }
+                        catch (OverflowException e)
+                        {
+                            Console.Out.WriteLine("OVERLOAD");
+                        }
+                    }
 
                 }
 
+
             }
-            
-            
+                break;
+            case "5":
+            {
+                for (int i = 0; i < containers.Count; i++)
+                {
+                    if (containers[i].OnShip == false)
+                        Console.Out.WriteLine(i + " - " + containers[i]);
+                }
+
+                Console.Out.WriteLine("Select container");
+                int selection = Convert.ToInt32(Console.ReadLine());
+
+                if (selection >= 0 && selection <= containers.Count)
+                {
+                    Console.Out.WriteLine("Enter weight of the load");
+                    double weight = Convert.ToDouble(Console.ReadLine());
+                    if (weight > 0)
+                    {
+                        containers[selection].Unload(weight);
+
+                    }
+                }
+            }
+                break;
+            case "6":
+            {
+                for (int i = 0; i < containerShips.Count; i++)
+                {
+                    Console.Out.WriteLine(i + " - " + containerShips[i]);
+                }
+
+                Console.Out.WriteLine("Select Ship");
+                int shipSelection = Convert.ToInt32(Console.ReadLine());
+
+                // for (int i = 0; i < containerShips[shipSelection].containers.Count; i++)
+                // {
+                //     Console.Out.WriteLine(i + " - " + containerShips[shipSelection].containers[i]);
+                // }
+                for (int i = 0; i < containers.Count; i++)
+                {
+                    if (containerShips[shipSelection].IsLoaded(containers[i]))
+                        Console.Out.WriteLine(i + " - " + containers[i]);
+                }
+
+                Console.Out.WriteLine("Select container to unload");
+                int containerSelection = Convert.ToInt32(Console.ReadLine());
+
+
+
+                containerShips[shipSelection].unload(containers[containerSelection]);
+
+
+            }
+                break;
+            case "7":
+            {
+                for (int i = 0; i < containers.Count; i++)
+                {
+                    if (containers[i].type == "RefrigeratedContainer")
+                        Console.Out.WriteLine(i + " - " + containers[i]);
+                }
+
+                Console.Out.WriteLine("Select container");
+                int selection = Convert.ToInt32(Console.ReadLine());
+
+                RefrigeratedContainer refrigeratedContainer = (RefrigeratedContainer)containers[selection];
+
+                Console.Out.WriteLine("Enter new temperature");
+                refrigeratedContainer.Temp = Convert.ToDouble(Console.ReadLine());
+
+            }
+                break;
+            case "8":
+            {
+                for (int i = 0; i < containers.Count; i++)
+                {
+                    Console.Out.WriteLine(i + " - " + containers[i]);
+                }
+
+                Console.Out.WriteLine("Select container");
+                int selection = Convert.ToInt32(Console.ReadLine());
+
+                Console.Out.WriteLine(containers[selection]);
+            }
+                break;
+            case "9":
+            {
+                for (int i = 0; i < containerShips.Count; i++)
+                {
+                    Console.Out.WriteLine(i + " - " + containerShips[i]);
+                }
+
+                Console.Out.WriteLine("Select Ship");
+                int shipSelection = Convert.ToInt32(Console.ReadLine());
+
+                Console.Out.WriteLine(containerShips[shipSelection]);
+            }
+                break;
         }
-            break;
+    }
+    catch (FormatException e)
+    {
+        Console.Out.WriteLine("Wrong selection");
     }
 } while (input != "q");

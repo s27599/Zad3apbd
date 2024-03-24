@@ -6,10 +6,12 @@ public class RefrigeratedContainer : Container
 {
     public Products? Products { get; private set; }
     private double _temp;
-
+    private static int counter = 1;
     public RefrigeratedContainer(double height, double ownWeight, double depth, double maxLoad, Products products)
         : base(height, ownWeight, depth, maxLoad)
     {
+        SerialNumber = "KON-C-" + counter++;
+        
         this.Products = products;
         _temp = ((int)Products) / 100;
     }
@@ -17,6 +19,8 @@ public class RefrigeratedContainer : Container
     public RefrigeratedContainer(double height, double ownWeight, double depth, double maxLoad)
         : base(height, ownWeight, depth, maxLoad)
     {
+        SerialNumber = "KON-L" + counter++;
+
         Products = null;
         _temp = 20;
     }
@@ -86,4 +90,13 @@ public class RefrigeratedContainer : Container
             }
         }
     }
+
+
+    public override string ToString()
+    {
+        return base.ToString()+"\n" +
+               "Load: "+Products+" \n" +
+               "Temperature:" +_temp;
+    }
+
 }

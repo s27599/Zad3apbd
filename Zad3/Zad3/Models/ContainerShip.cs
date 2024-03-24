@@ -1,18 +1,22 @@
 ﻿using System.Collections;
+using System.Text;
 using Zad3.Models.@base;
 
 namespace Zad3.Models;
 
 public class ContainerShip
 {
+    public String RejNumber { get; }
     public List<Container> containers { get; }
     public int maxSpeed { get; }
     public int maxContainers { get; }
     public double maxContainerMass { get; }
     private double _ContainerMass;
+    private static int counter = 1;
 
-    public ContainerShip( int maxSpeed, int maxContainers, double maxContainerMass)
+    public ContainerShip(int maxSpeed, int maxContainers, double maxContainerMass)
     {
+        this.RejNumber = "SHIP-" + counter++;
         this.containers = new List<Container>();
         this.maxSpeed = maxSpeed;
         this.maxContainers = maxContainers;
@@ -21,12 +25,19 @@ public class ContainerShip
 
     public void Load(Container container)
     {
-        if (containers.Count < maxContainers)
+        if (IsLoaded(container))
         {
-            if (maxContainerMass > (container.OwnWeight + container.Loaded) + _ContainerMass)
+            Console.Out.WriteLine("Container is already Loaded");
+        }
+        else
+        {
+            if (containers.Count < maxContainers)
             {
-                containers.Add(container);
-                _ContainerMass = (container.OwnWeight + container.Loaded) + _ContainerMass;
+                if (maxContainerMass > (container.OwnWeight + container.Loaded) + _ContainerMass)
+                {
+                    containers.Add(container);
+                    _ContainerMass = (container.OwnWeight + container.Loaded) + _ContainerMass;
+                }
             }
         }
     }
@@ -34,34 +45,75 @@ public class ContainerShip
     public void Load(List<Container> containersToLoad)
     {
         double sumMas = 0;
-        
-        // policzyć łączną masę i porównywać z max masą łączną
-        foreach (Container con in containersToLoad)
-        {
-            sumMas += (con.OwnWeight + con.Loaded);
-        }
-        if (containers.Count+containersToLoad.Count < maxContainers)
-        {
-            if (maxContainerMass > sumMas + _ContainerMass)
-            {
-                foreach (Container con in containersToLoad) containers.Add(con);
 
-                _ContainerMass = sumMas + _ContainerMass;
+        if (containers.Any(x => containersToLoad.Any(y => y == x)))
+        {
+            Console.Out.WriteLine("Some containers From this list are already Loaded");
+        }
+        else
+        {
+            foreach (Container con in containersToLoad)
+            {
+                sumMas += (con.OwnWeight + con.Loaded);
+            }
+            if (containers.Count + containersToLoad.Count < maxContainers)
+            {
+                if (maxContainerMass > sumMas + _ContainerMass)
+                {
+                    foreach (Container con in containersToLoad) containers.Add(con);
+
+                    _ContainerMass = sumMas + _ContainerMass;
+                }
             }
         }
-        
     }
-    
+
 
     public void unload(Container container)
     {
         if (containers.Contains(container))
         {
             containers.Remove(container);
-            _ContainerMass -= (container.OwnWeight + container.Loaded) ;
+            _ContainerMass -= (container.OwnWeight + container.Loaded);
         }
     }
-    
-    
-    
+
+
+    public bool IsLoaded(Container container)
+    {
+        return containers.Contains(container);
+    }
+
+    public void ChangeContainer(Container container1, Container container2)
+    {
+        if (!IsLoaded(container1))
+        {
+            Console.Out.WriteLine("Container1 is not loaded on this ship");
+        }
+        else
+        {
+            unload(container1);
+            Load(container2);
+        }
+    }
+
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (Container con in containers)
+        {
+            sb.Append(con);
+            sb.Append("\n ");
+        }
+
+        return "ContainerShip: " + RejNumber + "\n" +
+               "Transporting: " + _ContainerMass + "t \n" +
+               "Containers: " + sb.ToString();
+
+    }
+
+
+
+
 }

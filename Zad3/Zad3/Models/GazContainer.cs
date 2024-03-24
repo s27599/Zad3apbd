@@ -18,7 +18,7 @@ public class GazContainer : Container, IHazardNotifier
         Console.Out.WriteLine("HAZARD: you must leave 5% of the load in container: "+rejNum);
     }
     
-    public void unload(double weight)
+    public void Unload(double weight)
     {
         if (this.Loaded*1.05 >= weight)
         {
@@ -43,6 +43,13 @@ public class GazContainer : Container, IHazardNotifier
             throw new OverfillException("OVERLOAD");
         }
     }
-    
-    
+
+    public override string ToString()
+    {
+        return base.ToString() + "\n" +
+               "Load: Gaz \n" +
+               "Preasure: " + pressure;
+    }
+
+
 }

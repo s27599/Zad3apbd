@@ -24,6 +24,10 @@ public class LiquidContainerHazard : LiquidConainter, IHazardNotifier
             Hazard(SerialNumber);
         }
     }
-    
-    
+    public override string ToString()
+    {
+        return base.ToString()+"\n" +
+               "Load: Hazard Liquid";
+    }
+
 }

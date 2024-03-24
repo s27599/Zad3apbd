@@ -41,11 +41,26 @@ public abstract class Container
             throw new OverfillException("OVERLOAD");
         }
     }
+
+    public override string ToString()
+    {
+        return "Container: " + SerialNumber + "\n" +
+               "Loaded: " + Loaded +"t";
+
+
+    }
+
+
+
 }
+
+
 
 public class OverfillException : Exception
 {
     public OverfillException(){}
     public OverfillException(string message):base(message){}
 }
+
+
 

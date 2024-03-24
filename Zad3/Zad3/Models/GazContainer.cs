@@ -9,6 +9,7 @@ public class GazContainer : Container, IHazardNotifier
     public GazContainer( double height, double ownWeight, double depth, double maxLoad)
         : base( height, ownWeight, depth, maxLoad)
     {
+        type = "GazContainer";
         SerialNumber = "KON-G-" + counter++;
         pressure = 0;
     }

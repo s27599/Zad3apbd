@@ -8,6 +8,7 @@ public abstract class Container
     public double Depth{ get; }
     public String SerialNumber{ get; protected set; }
     public double MaxLoad{ get; }
+    public String type { get; protected set; }
 
     protected Container( double height, double ownWeight, double depth, double maxLoad)
     {

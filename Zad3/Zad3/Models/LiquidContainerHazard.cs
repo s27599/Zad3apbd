@@ -2,9 +2,12 @@
 
 public class LiquidContainerHazard : LiquidConainter, IHazardNotifier
 {
-    public LiquidContainerHazard(int height, int ownWeight, int depth, int maxLoad)
+    
+    
+    public LiquidContainerHazard(double height, double ownWeight, double depth, double maxLoad)
         : base(height, ownWeight, depth, maxLoad)
     {
+        type = "LiquidContainerHazard";
         SerialNumber = "KON-L-"+ (Counter++);
     }
     

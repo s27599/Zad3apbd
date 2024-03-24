@@ -10,6 +10,7 @@ public class RefrigeratedContainer : Container
     public RefrigeratedContainer(double height, double ownWeight, double depth, double maxLoad, Products products)
         : base(height, ownWeight, depth, maxLoad)
     {
+        type = "RefrigeratedContainer";
         SerialNumber = "KON-C-" + counter++;
         
         this.Products = products;
@@ -19,7 +20,8 @@ public class RefrigeratedContainer : Container
     public RefrigeratedContainer(double height, double ownWeight, double depth, double maxLoad)
         : base(height, ownWeight, depth, maxLoad)
     {
-        SerialNumber = "KON-L" + counter++;
+        type = "RefrigeratedContainer";
+        SerialNumber = "KON-C-" + counter++;
 
         Products = null;
         _temp = 20;
